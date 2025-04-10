@@ -3,7 +3,6 @@ import { debugNodeToString, generate, Npc, NpcGenerateOptions } from "npc-genera
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { v4 as uuidV4 } from "uuid";
-import Footer from "./Footer";
 import NpcData from "./NpcData";
 import { NpcHistory } from "./NpcHistory";
 import { GeneratedNpc } from "./typings";
@@ -50,15 +49,15 @@ export default function DisplayNpc() {
         <Row>
           <Col sm={12} md={4} lg={3} className="user-info-col">
             <div className="user-info">
-              <div className="title-image-wrapper">
-                <div className="title-image" />
-              </div>
+              <h2 className="title-wrapper">
+                NPC Generator
+              </h2>
               <UserInput npc={npcUid.npc} generate={generateNpc} onToggleHistory={handleToggleHistory} />
             </div>
           </Col>
           <Col sm={12} md={7} lg={9}>
             {isShowingHistory ? <NpcHistory activeNpcUid={npcUid.uid || ""} npcHistory={npcHistory} onLoadNpc={handleLoadNpc} /> : <NpcData npc={npcUid.npc} />}
-            <Footer />
+            
           </Col>
         </Row>
       </div>

@@ -3,6 +3,7 @@ import jsoncrush from "jsoncrush";
 import { getNpcOptionsValues, Npc, NpcGenerateOptions } from "npc-generator";
 import { Component } from "react";
 import { Button, Col, Form, FormGroup, FormLabel, Row } from "react-bootstrap";
+import Footer from "./Footer";
 
 const { alignments, occupations, classes, genders, plothooks, professions, races } = getNpcOptionsValues();
 
@@ -254,7 +255,7 @@ export default class UserInput extends Component<IProps, IState> {
       <div>
         <div className="npc-options">{npcOptions}</div>
         <div className="bottom-options">
-          <Button className="generate-button" variant="success" title="Generate" data-test="generate-button" onClick={this.onSubmit} />
+          <Button className="generate-button" variant="outline-secondary" title="Generate" data-test="generate-button" onClick={this.onSubmit}>Generate</Button>
           <Button variant="outline-secondary" title="Export character to .txt file" data-test="export-button" onClick={this.downloadTxtFile}>
             Export
           </Button>
@@ -266,6 +267,7 @@ export default class UserInput extends Component<IProps, IState> {
             🔗 Bookmark
           </a>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -1,29 +1,18 @@
-.title-image-wrapper {
+.title-wrapper {
   margin: 0 12px 12px 12px;
-}
-
-.title-image {
-  margin: 0 auto;
-  background-image: url("../images/npcgenerator.png");
-  background-size: 100% 100%;
-  border: none;
-  max-width: 220px;
-  height: 32px;
+  text-align: center;
 }
 
 .user-info-col {
-  margin-bottom: 20px;
   height: 100%;
 }
 
 .user-info {
-  border: none;
-  background-color: rgba(46, 56, 55, 0.5);
-  border-radius: 8px;
+  border: 1px solid var(--bs-white);
+  background-color: black;
   color: var(--bs-white);
-  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
-  padding-bottom: 23px;
-  padding-top: 23px;
+  padding-bottom: 10px;
+  padding-top: 20px;
 }
 
 .display-npc-root .card {
