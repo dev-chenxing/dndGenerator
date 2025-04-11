@@ -2,7 +2,6 @@ import copy from "copy-to-clipboard";
 import jsoncrush from "jsoncrush";
 import { getNpcOptionsValues, Npc, NpcGenerateOptions } from "npc-generator";
 import { Component } from "react";
-import { Button, Col, Form, FormGroup, FormLabel, Row } from "react-bootstrap";
 import Footer from "./Footer";
 
 const { alignments, occupations, classes, genders, plothooks, professions, races } = getNpcOptionsValues();
@@ -174,20 +173,20 @@ export default class UserInput extends Component<IProps, IState> {
 
     if (wasCopiedToClipboard) {
       return (
-        <Button
-          variant="outline-primary"
+        <button
+          className="border py-1 cursor-pointer"
           title="Copied to clipboard"
           data-test="copy-button"
           onBlur={() => void this.setState({ wasCopiedToClipboard: false })}
         >
           Copied!
-        </Button>
+        </button>
       );
     }
     return (
-      <Button variant="outline-secondary" title="Copy character to clipboard" data-test="copy-button" onClick={this.copyNpcToClipboard}>
+      <button className="border py-1 cursor-pointer" title="Copy character to clipboard" data-test="copy-button" onClick={this.copyNpcToClipboard}>
         Copy to Clipboard
-      </Button>
+      </button>
     );
   }
 
@@ -220,11 +219,11 @@ export default class UserInput extends Component<IProps, IState> {
       }
 
       return (
-        <Row key={userOption.label}>
-          <Col>
-            <FormGroup>
-              <FormLabel>{userOption.label}</FormLabel>
-              <Form.Select
+        <div key={userOption.label} className="my-2">
+            <form className="flex justify-between items-center">
+              <label>{userOption.label}</label>
+              <select
+                className="w-36 border p-2 bg-black"
                 value={selectedOption ?? undefined}
                 onChange={(e: any) => {
                   const npcOptions = this.state.npcOptions;
@@ -241,10 +240,9 @@ export default class UserInput extends Component<IProps, IState> {
                   Random
                 </option>
                 {options}
-              </Form.Select>
-            </FormGroup>
-          </Col>
-        </Row>
+              </select>
+            </form>
+          </div>
       );
     });
 
@@ -254,16 +252,16 @@ export default class UserInput extends Component<IProps, IState> {
     return (
       <div>
         <div className="npc-options">{npcOptions}</div>
-        <div className="bottom-options">
-          <Button className="generate-button" variant="outline-secondary" title="Generate" data-test="generate-button" onClick={this.onSubmit}>Generate</Button>
-          <Button variant="outline-secondary" title="Export character to .txt file" data-test="export-button" onClick={this.downloadTxtFile}>
+        <div className="grid grid-cols-auto gap-2 my-4">
+          <button className="generate-button border py-1 cursor-pointer" title="Generate" data-test="generate-button" onClick={this.onSubmit}>Generate</button>
+          <button className="border py-1 cursor-pointer" title="Export character to .txt file" data-test="export-button" onClick={this.downloadTxtFile}>
             Export
-          </Button>
+          </button>
           {this.renderCopyToClipboardButton()}
-          <Button className="history" variant="outline-secondary" title="History" data-test="history-button" onClick={this.props.onToggleHistory}>
+          <button className="history border py-1 cursor-pointer" title="History" data-test="history-button" onClick={this.props.onToggleHistory}>
             History
-          </Button>
-          <a className="npc-link" href={npcDataUrl.toString()} data-test="bookmark-button">
+          </button>
+          <a className="border text-center py-1" href={npcDataUrl.toString()} data-test="bookmark-button">
             🔗 Bookmark
           </a>
         </div>

@@ -1,7 +1,6 @@
 import jsoncrush from "jsoncrush";
 import { debugNodeToString, generate, Npc, NpcGenerateOptions } from "npc-generator";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { v4 as uuidV4 } from "uuid";
 import NpcData from "./NpcData";
 import { NpcHistory } from "./NpcHistory";
@@ -45,23 +44,22 @@ export default function DisplayNpc() {
 
   return (
     <>
-      <div className="display-npc-root">
-        <Row>
-          <Col sm={12} md={4} lg={3} className="user-info-col">
-            <div className="user-info">
-              <h2 className="title-wrapper">
+      <div>
+        <div className="grid lg:grid-cols-3 lg:mt-10">
+          <div className="mx-4 mt-4 lg:m-4">
+            <div className="border p-4">
+              <h1 className="font-bold">
                 NPC Generator
-              </h2>
+              </h1>
               <UserInput npc={npcUid.npc} generate={generateNpc} onToggleHistory={handleToggleHistory} />
             </div>
-          </Col>
-          <Col sm={12} md={7} lg={9}>
+          </div>
+          <div className="border m-4 p-4 lg:col-span-2">
             {isShowingHistory ? <NpcHistory activeNpcUid={npcUid.uid || ""} npcHistory={npcHistory} onLoadNpc={handleLoadNpc} /> : <NpcData npc={npcUid.npc} />}
-            
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
-      <div className="printing">
+      <div className="printing hidden">
         <h1 className="print-title">{npcUid.npc.description.name}</h1>
         <NpcData npc={npcUid.npc} />
       </div>

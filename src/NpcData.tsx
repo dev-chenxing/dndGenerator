@@ -1,6 +1,5 @@
 import { Npc, NpcAbilities } from "npc-generator";
 import { Component } from "react";
-import { Card, Col, Row } from "react-bootstrap";
 
 const abilities: { key: keyof NpcAbilities; name: string }[] = [
   { key: "strength", name: "Strength" },
@@ -68,185 +67,162 @@ export default class NpcData extends Component<IProps> {
       ) : null;
 
     return (
-      <div className="npc-data" id="downloadData">
-        <Row>
-          <Col sm={12} lg={6} className="col-print-6">
-            <Card className="first-row-height">
-              <Card.Header>Description</Card.Header>
-              <Card.Body data-test="npc-description">
-                <p hidden>#</p>
-                <p>
-                  {npc.description.name} is a {npc.description.age + " "}
-                  year old {npc.description.gender} {npc.description.race + " "}
-                  {npc.description.occupation}.
-                </p>
-                <p hidden>#</p>
-                <p>
-                  {majP}has {npc.physical.hair}
-                  {npc.physical.eyes}.
-                </p>
-                <p hidden>#</p>
-                <p>
-                  {majP}has {npc.physical.skin}.
-                </p>
-                <p hidden>#</p>
-                <p>
-                  {majP}stands {npc.physical.height}cm ({toFeet(npc.physical.height)}) tall and has {npc.physical.build}.
-                </p>
-                <p hidden>#</p>
-                <p>
-                  {majP}has {npc.physical.face}.
-                </p>
-                <p hidden>#</p>
-                {specialPhysical1}
-                {specialPhysical2}
-                <p hidden>#</p>
-                <p hidden>#</p>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col sm={12} lg={6} className="col-print-6">
-            <Card className="first-row-height">
-              <Card.Header>Personality Traits</Card.Header>
-              <Card.Body data-test="npc-personality">
-                <p hidden>#</p>
-                <p>{npc.religion.description}</p>
-                <p hidden>#</p>
-                <p>{npc.ptraits.traits1}</p>
-                <p hidden>#</p>
-                <p>{npc.ptraits.traits2}</p>
-                {quirksArray.map((value) => (
-                  <p key={value}>{value}.</p>
-                ))}
-                <p hidden>#</p>
-                <p hidden>#</p>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12} lg={6} xl={4} className="col-print-4">
-            <Card className="second-row-height">
-              <Card.Header>Ability Scores</Card.Header>
-              <Card.Body data-test="npc-ability-table">
-                <p hidden>#</p>
-                <table className="ability-table">
-                  <tbody>
-                    {abilities.map(({ key, name }) => {
-                      const ability = npc.abilities[key];
-                      return (
-                        <tr key={key}>
-                          <td>
-                            <b>{name}</b>
-                            <p hidden> - </p>
-                          </td>
-                          <td className="ability-number">
-                            {renderAbility(ability)}
-                            <p hidden>#</p>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-                <p hidden>#</p>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={12} lg={6} xl={4} className="col-print-4">
-            <Card className="second-row-height">
-              <Card.Header>Relationships</Card.Header>
-              <Card.Body data-test="npc-relationships">
-                <p hidden>#</p>
-                <p>
-                  <b>Sexual Orientation </b>
-                </p>
-                <p hidden>- </p>
-                <p>{npc.relationship.orientation}</p>
-                <p hidden>#</p>
-                <p>
-                  <b>Relationship Status </b>
-                </p>
-                <p hidden>- </p>
-                <p>{npc.relationship.status}</p>
-                <p hidden>#</p>
-                <p hidden>#</p>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={12} lg={12} xl={4} className="col-print-4">
-            <Card className="second-row-height">
-              <Card.Header>Alignment Tendencies</Card.Header>
-              <Card.Body data-test="npc-alignment">
-                <p hidden>#</p>
-                <table className="alignment-table">
-                  <tbody>
-                    <tr>
-                      <td className="width-thin">
-                        <b>Good</b>
-                      </td>
-                      <td hidden>: </td>
-                      <td className="alignment-number">{Math.max(0, npc.alignment.good)}</td>
-                      <td hidden> </td>
-                      <td className="width-thin">
-                        <b>Lawful</b>
-                      </td>
-                      <td hidden>: </td>
-                      <td className="alignment-number">{Math.max(0, npc.alignment.lawful)}</td>
-                    </tr>
-                    <tr hidden>
-                      <td>#</td>
-                    </tr>
-                    <tr>
-                      <td className="width-thin">
-                        <b>Neutral</b>
-                      </td>
-                      <td hidden>: </td>
-                      <td className="alignment-number">{Math.max(0, npc.alignment.moralneutral)}</td>
-                      <td hidden> </td>
-                      <td className="width-thin">
-                        <b>Neutral</b>
-                      </td>
-                      <td hidden>: </td>
-                      <td className="alignment-number">{Math.max(0, npc.alignment.ethicalneutral)}</td>
-                    </tr>
-                    <tr hidden>
-                      <td>#</td>
-                    </tr>
-                    <tr>
-                      <td className="width-thin">
-                        <b>Evil</b>
-                      </td>
-                      <td hidden>: </td>
-                      <td className="alignment-number">{Math.max(0, npc.alignment.evil)}</td>
-                      <td hidden> </td>
-                      <td className="width-thin">
-                        <b>Chaotic</b>
-                      </td>
-                      <td hidden>: </td>
-                      <td className="alignment-number">{Math.max(0, npc.alignment.chaotic)}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <p hidden>#</p>
-        <p hidden>#</p>
-        <Row>
-          <Col sm={12}>
-            <Card className="align-center">
-              <Card.Header>Plot Hook</Card.Header>
-              <Card.Body data-test="npc-plot-hook">
-                <p hidden>#</p>
-                {npc.hook.description}
-                <p hidden>#</p>
-                <p hidden>#</p>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+      <div className="grid gap-2" id="downloadData">
+        <div className="grid md:grid-cols-2 gap-2">
+          <div className="border px-4 py-2">
+            <h2 className="font-bold">Description</h2>
+            <div data-test="npc-description">
+              <p hidden>#</p>
+              <p>
+                {npc.description.name} is a {npc.description.age + " "}
+                year old {npc.description.gender} {npc.description.race + " "}
+                {npc.description.occupation}.
+              </p>
+              <p hidden>#</p>
+              <p>
+                {majP}has {npc.physical.hair}
+                {npc.physical.eyes}.
+              </p>
+              <p hidden>#</p>
+              <p>
+                {majP}has {npc.physical.skin}.
+              </p>
+              <p hidden>#</p>
+              <p>
+                {majP}stands {npc.physical.height}cm ({toFeet(npc.physical.height)}) tall and has {npc.physical.build}.
+              </p>
+              <p hidden>#</p>
+              <p>
+                {majP}has {npc.physical.face}.
+              </p>
+              <p hidden>#</p>
+              {specialPhysical1}
+              {specialPhysical2}
+              <p hidden>#</p>
+              <p hidden>#</p>
+            </div>
+          </div>
+          <div className="border px-4 py-2">
+            <h2 className="font-bold">Personality Traits</h2>
+            <div data-test="npc-personality">
+              <p hidden>#</p>
+              <p>{npc.religion.description}</p>
+              <p hidden>#</p>
+              <p>{npc.ptraits.traits1}</p>
+              <p hidden>#</p>
+              <p>{npc.ptraits.traits2}</p>
+              {quirksArray.map((value) => (
+                <p key={value}>{value}.</p>
+              ))}
+              <p hidden>#</p>
+              <p hidden>#</p>
+            </div>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-3 gap-2">
+          <div className="border px-4 py-2">
+            <h2 className="font-bold">Ability Scores</h2>
+            <div data-test="npc-ability-table">
+              <table className="w-full">
+                <tbody>
+                  {abilities.map(({ key, name }) => {
+                    const ability = npc.abilities[key];
+                    return (
+                      <tr key={key}>
+                        <td>
+                          <b>{name}</b>
+                        </td>
+                        <td className="ability-number">
+                          {renderAbility(ability)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <p hidden>#</p>
+            </div>
+          </div>
+          <div className="border px-4 py-2">
+            <h2 className="font-bold">Relationships</h2>
+            <div data-test="npc-relationships">
+              <p hidden>#</p>
+              <p>
+                <b>Sexual Orientation </b>
+              </p>
+              <p hidden>- </p>
+              <p>{npc.relationship.orientation}</p>
+              <p hidden>#</p>
+              <p>
+                <b>Relationship Status </b>
+              </p>
+              <p hidden>- </p>
+              <p>{npc.relationship.status}</p>
+              <p hidden>#</p>
+              <p hidden>#</p>
+            </div>
+          </div>
+          <div className="border px-4 py-2">
+            <h2 className="font-bold">Alignment Tendencies</h2>
+            <div data-test="npc-alignment">
+              <table className="w-full">
+                <tbody>
+                  <tr>
+                    <td className="width-thin">
+                      <b>Good</b>
+                    </td>
+                    <td hidden>: </td>
+                    <td className="alignment-number">{Math.max(0, npc.alignment.good)}</td>
+                    <td hidden> </td>
+                    <td className="width-thin">
+                      <b>Lawful</b>
+                    </td>
+                    <td hidden>: </td>
+                    <td className="alignment-number">{Math.max(0, npc.alignment.lawful)}</td>
+                  </tr>
+                  <tr hidden>
+                    <td>#</td>
+                  </tr>
+                  <tr>
+                    <td className="width-thin">
+                      <b>Neutral</b>
+                    </td>
+                    <td hidden>: </td>
+                    <td className="alignment-number">{Math.max(0, npc.alignment.moralneutral)}</td>
+                    <td hidden> </td>
+                    <td className="width-thin">
+                      <b>Neutral</b>
+                    </td>
+                    <td hidden>: </td>
+                    <td className="alignment-number">{Math.max(0, npc.alignment.ethicalneutral)}</td>
+                  </tr>
+                  <tr hidden>
+                    <td>#</td>
+                  </tr>
+                  <tr>
+                    <td className="width-thin">
+                      <b>Evil</b>
+                    </td>
+                    <td hidden>: </td>
+                    <td className="alignment-number">{Math.max(0, npc.alignment.evil)}</td>
+                    <td hidden> </td>
+                    <td className="width-thin">
+                      <b>Chaotic</b>
+                    </td>
+                    <td hidden>: </td>
+                    <td className="alignment-number">{Math.max(0, npc.alignment.chaotic)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div className="border px-4 py-2">
+          <h2 className="font-bold">Plot Hook</h2>
+          <div data-test="npc-plot-hook">
+            {npc.hook.description}
+          </div>
+        </div>
       </div>
     );
   }
