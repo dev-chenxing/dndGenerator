@@ -1,5 +1,5 @@
 import jsoncrush from "jsoncrush";
-import { debugNodeToString, generate, Npc, NpcGenerateOptions } from "npc-generator";
+import { generate, Npc, NpcGenerateOptions } from "npc-generator";
 import React from "react";
 import { v4 as uuidV4 } from "uuid";
 import NpcData from "./NpcData";
@@ -16,9 +16,6 @@ export default function DisplayNpc() {
 
   const generateNpc = (npcOptions: NpcGenerateOptions) => {
     const result = generate({ npcOptions });
-    if (process.env.NODE_ENV === "development") {
-      console.log(debugNodeToString(result.debugNode));
-    }
     const npc: GeneratedNpc = {
       npc: result.npc,
       uid: uuidV4(),
