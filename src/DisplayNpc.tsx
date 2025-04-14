@@ -8,6 +8,12 @@ import { GeneratedNpc } from "./typings";
 import { useNpcHistory } from "./useNpcHistory";
 import UserInput from "./UserInput";
 
+const defaultNpcGenerateOptions: NpcGenerateOptions = {
+  classorprof: 0,
+  occupation1: 13,
+  occupation2: null
+}
+
 export default function DisplayNpc() {
   const [_npcUid, setNpc] = React.useState(useNpcFromQuery());
   let npcUid = _npcUid;
@@ -29,7 +35,7 @@ export default function DisplayNpc() {
 
   // Generate initial npc, if we didn't load data from url query
   if (!npcUid) {
-    npcUid = generateNpc({});
+    npcUid = generateNpc(defaultNpcGenerateOptions);
   }
 
   const handleToggleHistory = () => setShowHistory(!isShowingHistory);

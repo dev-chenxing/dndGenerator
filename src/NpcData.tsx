@@ -10,6 +10,28 @@ const abilities: { key: keyof NpcAbilities; name: string }[] = [
 	{ key: "charisma", name: "Charisma" },
 ];
 
+const subclasses: Record<string, string[]> = {
+  "barbarian": ["Path of the Battlerager", "Path of the Berserker", "Path of the Totem Warrior"],
+  "bard": ["College of Lore", "College of Valor"],
+  "cleric": ["Arcana Domain", "Death Domain", "Knowledge Domain", "Life Domain", "Light Domain", "Nature Domain", "Tempest Domain", "Trickery Domain", "War Doamin"],
+  "druid": ["Circle of the Land", "Circle of the Moon"],
+  "fighter": ["Battle Master", "Champion", "Eldrith Knight", "Purple Dragon Knight"],
+  "monk": ["Way of the Four Elements", "Way of the Long Death", "Way of the Open Hand", "Way of the Sun Soul", "Way of Shadow"],
+  "paladin": ["Oath of the Ancients", "Oath of the Crown", "Oath of Devotion", "Oath of Vengeance", "Oathbreaker"],
+  "ranger": ["Beast Master", "Hunter"],
+  "rogue": ["Arcane Trickster", "Assassin", "Mastermind", "Thief", "Swashbuckler"],
+  "sorcerer": ["Draconic Bloodline", "Storm Sorcery", "Wild Magic"],
+  "warlock": ["The Archfey", "The Fiend", "The Great Old One", "The Undying"],
+  "wizard": ["Bladesinging", "School of Abjuration", "School of Conjuration", "School of Divination", "School of Enchantment", "School of Evocation", "School of Illusion", "School of Necromancy", "School of Transmutation"],
+}
+
+const randomElement = (array: Array<any>) => array[Math.floor(Math.random() * array.length)];
+const toTitleCase = (sentence: string) => sentence.replace(
+  /\b[a-z]/g, 
+  firstCharOfWord => firstCharOfWord.toUpperCase()
+)
+
+
 function toFeet(n: number) {
 	const realFeet = (n * 0.3937) / 12;
 	const feet = Math.floor(realFeet);
@@ -86,6 +108,9 @@ export default class NpcData extends Component<IProps> {
       if (ethicalAlignment == "Neutral" && mornalAlignment == "Neutral") return "True Neutral" 
 			return `${ethicalAlignment} ${mornalAlignment}`
 		}
+
+    const subclass = subclasses[npc.description.occupation] ? ` (${randomElement(subclasses[npc.description.occupation])})` : null
+
 		return (
 			<div className="grid gap-2" id="downloadData">
 				<div className="grid md:grid-cols-2 gap-2">
@@ -95,8 +120,8 @@ export default class NpcData extends Component<IProps> {
 							<p hidden>#</p>
 							<p>
 								{npc.description.name} is a {npc.description.age + " "}
-								year old {npc.description.gender} {npc.description.race + " "}
-								{npc.description.occupation}.
+								year old {npc.description.gender} {toTitleCase(npc.description.race) + " "}
+								{toTitleCase(npc.description.occupation)}{subclass}.
 							</p>
 							<p hidden>#</p>
 							<p>
