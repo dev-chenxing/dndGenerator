@@ -4,7 +4,11 @@ import { getNpcOptionsValues, Npc, NpcGenerateOptions } from "npc-generator";
 import { Component } from "react";
 import Footer from "./Footer";
 
-const { alignments, occupations, classes, genders, plothooks, professions, races } = getNpcOptionsValues();
+const { alignments, occupations, classes, races } = getNpcOptionsValues();
+
+const filteredRaces = ["Aasimar", "Dragonborn", "Dwarf", "Elf", "Gnome", "Goblin", "Halfling", "Half-Elf", "Half-Orc", "Human", "Tiefling"]
+const genders =  [{name: "Female", value: 1}, {name: "Male", value: 0}]
+const filteredClasses = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"]
 
 interface IProps {
   npc: Npc;
@@ -23,13 +27,9 @@ type UserOption = {
 };
 
 const classOccupationValue = occupations.find((o) => !!o.classes)?.value ?? -1;
-const professionOccupationValue = occupations.find((o) => !!o.professions)?.value ?? -1;
+// const professionOccupationValue = occupations.find((o) => !!o.professions)?.value ?? -1;
 
-const filteredRaces = ["Aasimar", "Dragonborn", "Dwarf", "Elf", "Gnome", "Goblin", "Halfling", "Half-Elf", "Half-Orc", "Human", "Tiefling"]
-const getRaces = () => {
-  console.log(races)
-  return races.filter((race) => { return filteredRaces.includes(race.name) });
-}
+
 
 const userOptions: {
   label: string;
@@ -41,7 +41,7 @@ const userOptions: {
     {
       label: "Race",
       optionName: "race",
-      options: getRaces(),
+      options: () => races.filter((race) => filteredRaces.includes(race.name)),
       onChange: (component) => {
         const npcOptions = component.state.npcOptions;
         npcOptions.subrace = null;
@@ -55,54 +55,56 @@ const userOptions: {
       options: (npcOptions) => races[npcOptions.race || 0]?.subraces || [],
     },
     {
-      label: "Sex",
+      label: "Gender",
       optionName: "gender",
       options: genders,
     },
     {
       label: "Alignment",
       optionName: "alignment",
-      options: alignments,
-    },
-    {
-      label: "Plot Hooks",
-      optionName: "plothook",
-      options: plothooks,
-    },
-    {
-      label: "Occupation",
-      optionName: "classorprof",
-      options: occupations,
-      onChange: (component) => {
-        const npcOptions = component.state.npcOptions;
-        npcOptions.occupation1 = null;
-        npcOptions.occupation2 = null;
-        component.setState({ npcOptions });
+      options: () => {
+        return alignments;
       },
     },
+    // {
+    //   label: "Plot Hooks",
+    //   optionName: "plothook",
+    //   options: plothooks,
+    // },
+    // {
+    //   label: "Occupation",
+    //   optionName: "classorprof",
+    //   options: occupations,
+    //   onChange: (component) => {
+    //     const npcOptions = component.state.npcOptions;
+    //     npcOptions.occupation1 = null;
+    //     npcOptions.occupation2 = null;
+    //     component.setState({ npcOptions });
+    //   },
+    // },
     {
       label: "Class",
       optionName: "occupation1",
-      condition: (npcOptions) => npcOptions.classorprof === classOccupationValue,
-      options: classes,
+      // condition: (npcOptions) => npcOptions.classorprof === classOccupationValue,
+      options:  () => classes.filter((class_) => filteredClasses.includes(class_.name)),
     },
-    {
-      label: "Social Class",
-      optionName: "occupation1",
-      condition: (npcOptions) => npcOptions.classorprof === professionOccupationValue,
-      options: professions,
-      onChange: (component) => {
-        const npcOptions = component.state.npcOptions;
-        npcOptions.occupation2 = null;
-        component.setState({ npcOptions });
-      },
-    },
-    {
-      label: "Profession",
-      optionName: "occupation2",
-      condition: (npcOptions) => npcOptions.classorprof === professionOccupationValue && typeof npcOptions.occupation1 === "number",
-      options: (npcOptions) => professions[npcOptions.occupation1 || 0]?.professionCategories || [],
-    },
+    // {
+    //   label: "Social Class",
+    //   optionName: "occupation1",
+    //   condition: (npcOptions) => npcOptions.classorprof === professionOccupationValue,
+    //   options: professions,
+    //   onChange: (component) => {
+    //     const npcOptions = component.state.npcOptions;
+    //     npcOptions.occupation2 = null;
+    //     component.setState({ npcOptions });
+    //   },
+    // },
+    // {
+    //   label: "Profession",
+    //   optionName: "occupation2",
+    //   condition: (npcOptions) => npcOptions.classorprof === professionOccupationValue && typeof npcOptions.occupation1 === "number",
+    //   options: (npcOptions) => professions[npcOptions.occupation1 || 0]?.professionCategories || [],
+    // },
   ];
 
 export default class UserInput extends Component<IProps, IState> {
@@ -223,6 +225,7 @@ export default class UserInput extends Component<IProps, IState> {
           );
         });
       }
+      this.state.npcOptions.classorprof = classOccupationValue
 
       return (
         <div key={userOption.label} className="my-2">
